@@ -1,0 +1,1 @@
+The implementation is pretty much just following all the equations taugh in this couse, especially the python excersise in the previous chapter. All the code is fairly self-explainary. Not sure what to say here. Wasted way too much time to tune the parameters already. I wish there is a more mature way to tune the params..
