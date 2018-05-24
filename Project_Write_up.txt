@@ -1,1 +1,22 @@
-The implementation is pretty much just following all the equations taugh in this couse, especially the python excersise in the previous chapter. All the code is fairly self-explainary. Not sure what to say here. Wasted way too much time to tune the parameters already. I wish there is a more mature way to tune the params..
+1. Body Rate Control
+This is a P controller. We take the body rate error (i.e. difference between command rate and actual rate), and use that to multiply gain parameter kPQR. The result is then turned into moment command by multiplying the moment of inertia vector.
+
+2. Roll Pitch Controller
+First of all we need to convert thrust to acceleration by dividing the mass. The rest of the code basically follows the equation taught in the class, computing b_dot_x_c and b_dot_y_c, and then compute p and q command.
+
+3. Altitude Controller
+This is a PID controller, hence apllying the equation of PID control. We also need to take into consideration where integratedAltitudeError is affecting the results significant. This took me a long time to figure out, as the lectures didn't talk about this one.
+
+4. Latteral Controller
+This basically contains four PID controllers. We compute the desired command for both velocity and acceleration, for both x and y. We also need to constrain the range to somethign reasonable.
+
+5. Yaw Controller
+Very simple P controller.
+
+6. Implement motor command generation
+To address this it requires solving a 4-param linear equation set. The relationship are:
+// collThrustCmd = F1 + F2 + F3 + F4
+// rx = l(F1 - F2 - F3 + F4)
+// ry = l(F1 + F2 - F3 - F4)
+// rz = -kappa(F1 - F2 + F3 - F4)
+We jist need to solve this equation set, and assign the right value to each desired thrust.
